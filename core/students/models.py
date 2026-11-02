@@ -23,12 +23,14 @@ class StudentProfile(models.Model):
         OTHER="OTHER","other"
    
     user=models.OneToOneField(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,related_name="student_profile")
-    full_name=models.CharField(max_length=50,null=False)
+    first_name=models.CharField(max_length=50,null=False)
+    last_name=models.CharField(max_length=50,null=False)
     gender=models.CharField(max_length=10,choices=GenderChoices.choices,null=False)
     year=models.CharField(max_length=20,null=False)
     student_id=models.CharField(max_length=20,null=False,unique=True,editable=False)
     date_of_birth=models.DateField(null=False)
-    phone_number=models.CharField(max_length=15,null=False)
+    email=models.EmailField(null=False)
+    phone_number=models.CharField(max_length=10,null=False)
     address=models.CharField(max_length=255,null=False)
     admission_date=models.DateField(null=False,auto_now_add=True)
     created_at=models.DateTimeField(auto_now_add=True)
@@ -40,4 +42,5 @@ class StudentProfile(models.Model):
             self.student_id=generate_student_id()
         super().save(*args,**kwargs)
     def __str__(self):
-       return f"{self.full_name}-{self.student_id}" 
+       return f"{self.first_name}-{self.student_id}" 
+
