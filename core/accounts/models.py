@@ -13,4 +13,4 @@ class User(AbstractUser):
     must_change_password=models.BooleanField(default=True)
 
     def __str__(self):
-        return f"{self.username} - {self.role}"
+        return f"{self.username}"

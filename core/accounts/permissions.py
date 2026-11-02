@@ -9,5 +9,6 @@ class IsTeacherUser(BasePermission):
 class IsStudentUser(BasePermission):
     def has_permission(self,request,view):
         return request.user and request.user.is_authenticated and request.user.role=="STUDENT"
-
-
+class IsAdminUserOrTeacher(BasePermission):
+    def has_permission(self,request,view):
+        return request.user and request.user.is_authenticated and request.user.role=="ADMIN" or request.user.role=="TEACHER" 
