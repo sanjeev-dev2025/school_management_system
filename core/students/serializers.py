@@ -6,7 +6,7 @@ import string
 import secrets
 from students.utils import send_student_credentials
 class StudentProfileSerializer(serializers.ModelSerializer):
-    email=serializers.EmailField()
+    email=serializers.EmailField(source="user.email")
     student_id=serializers.ReadOnlyField()
     class Meta:
         model=StudentProfile
@@ -19,8 +19,10 @@ class StudentProfileSerializer(serializers.ModelSerializer):
         return password
     @transaction.atomic
     def create(self,validated_data):
+        user_data=validated_data.pop('user')
+        email=user_data["email"]
         password=self.password_generator()
-        email=validated_data.pop('email')
+        
         user=User.objects.create_user(
             username=validated_data['first_name'],
             first_name=validated_data['first_name'],
@@ -38,5 +40,14 @@ class StudentProfileSerializer(serializers.ModelSerializer):
         )
         send_student=send_student_credentials(student,password)
         return student
+    @transaction.atomic
+    def update(self, instance, validated_data):
 
+        user_data = validated_data.pop("user", {})
+
+        if "email" in user_data:
+            instance.user.email = user_data["email"]
+            instance.user.save(update_fields=["email"])
+
+        return super().update(instance, validated_data)
 

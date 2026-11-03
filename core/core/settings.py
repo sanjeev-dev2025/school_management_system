@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'dj_rest_auth',
+    'django_filters',
     'accounts',
     'teachers',
     'students',
@@ -151,7 +152,8 @@ REST_FRAMEWORK={
     "DEFAULT_AUTHENTICATION_CLASSES":(
         "rest_framework_simplejwt.authentication.JWTAuthentication",
         "rest_framework.authentication.SessionAuthentication",
-    )
+    ),
+    "DEFAULT_FILTER_BACKENDs":['django_filters.rest_framework.DjangoFilterBackend']
 }
 REST_AUTH = {
     'USE_JWT': True,
