@@ -21,11 +21,26 @@ class StudentProfile(models.Model):
         MALE="MALE","male"
         FEMALE="FEMALE","female"
         OTHER="OTHER","other"
-   
+    class Grade(models.TextChoices):
+        GRADE_1 = "1", "Grade 1"
+        GRADE_2 = "2", "Grade 2"
+        GRADE_3 = "3", "Grade 3"
+        GRADE_4 = "4", "Grade 4"
+        GRADE_5 = "5", "Grade 5"
+        GRADE_6 = "6", "Grade 6"
+        GRADE_7 = "7", "Grade 7"
+        GRADE_8 = "8", "Grade 8"
+        GRADE_9 = "9", "Grade 9"
+        GRADE_10 = "10", "Grade 10"
+        GRADE_11 = "11", "Grade 11"
+        GRADE_12 = "12", "Grade 12"
+
+        
     user=models.OneToOneField(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,related_name="student_profile")
     first_name=models.CharField(max_length=50,null=False)
     last_name=models.CharField(max_length=50,null=False)
     gender=models.CharField(max_length=10,choices=GenderChoices.choices,null=False)
+    grade=models.CharField(max_length=2,choices=Grade.choices,null=False)
     year=models.CharField(max_length=20,null=False)
     student_id=models.CharField(max_length=20,null=False,unique=True,editable=False)
     date_of_birth=models.DateField(null=False)

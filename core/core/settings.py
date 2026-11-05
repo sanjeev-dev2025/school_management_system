@@ -9,9 +9,11 @@ https://docs.djangoproject.com/en/6.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.1/ref/settings/
 """
+import os
 from decouple import config
 from pathlib import Path
-
+from dotenv import load_dotenv
+load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -43,9 +45,15 @@ INSTALLED_APPS = [
     'allauth.account',
     'dj_rest_auth',
     'django_filters',
+    'cloudinary',
+    'cloudinary_storage',
     'accounts',
     'teachers',
     'students',
+    'payments',
+    'fees',
+    'assignments',
+    
 ]
 SITE_ID=1
 
@@ -158,4 +166,9 @@ REST_FRAMEWORK={
 REST_AUTH = {
     'USE_JWT': True,
     
+}
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.getenv("CLOUDINARY_CLOUD_NAME"),
+    'API_KEY': os.getenv("CLOUDINARY_API_KEY"),
+    'API_SECRET': os.getenv("CLOUDINARY_API_SECRET"),
 }

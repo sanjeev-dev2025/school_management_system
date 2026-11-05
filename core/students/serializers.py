@@ -11,7 +11,7 @@ class StudentProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model=StudentProfile
         fields=[
-            'first_name','last_name','student_id','gender','year','date_of_birth','email','address','phone_number','admission_date'
+            'first_name','last_name','student_id','gender','grade','year','date_of_birth','email','address','phone_number','admission_date'
         ]
 
     def password_generator(self):

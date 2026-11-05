@@ -12,3 +12,6 @@ class IsStudentUser(BasePermission):
 class IsAdminUserOrTeacher(BasePermission):
     def has_permission(self,request,view):
         return (request.user and request.user.is_authenticated and request.user.role in ["ADMIN","TEACHER"])
+class IsTeacherUserOrStudent(BasePermission):
+    def has_permission(slef,request,view):
+        return (request.user and request.user.is_authenticated and request.user.role in ["TEACHER","STUDNET"])
